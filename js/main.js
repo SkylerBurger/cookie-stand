@@ -9,12 +9,25 @@ var firstAndPike = {
         return Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
     },
     simulatedSales: function() {
-        var times = 12; // Placeholder number, will need to be based on open/close times
         var salesRecord = [];
-    
-        for(var i = 0; i < times; i++) {
-            salesRecord.push('Hour ' + i + ': ' + Math.ceil(this.customersPerHour() * this.avgCookiesPerHour) + ' cookies');
+        var totalCookies = 0;
+        var simulatedSales = 0;
+
+        for(var i = 0; i < 15; i++) {
+            var time = i + 6;
+            if(time > 12) {
+                time -= 12;
+                time = time + "pm: ";
+            } else {
+                time = time + "am: ";
+            }
+            
+            simulatedSales = Math.ceil(this.customersPerHour() * this.avgCookiesPerHour);
+            salesRecord.push(time + this.simulatedSales + ' cookies');
+            this.totalCookies += this.simulatedSales;
         }
+
+        salesRecord.push("Total: " + this.totalCookies + " cookies");
         return salesRecord;
     }
 }
