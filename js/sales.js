@@ -1,5 +1,77 @@
 'use strict';
 
+//==================
+// Store Constructor
+//==================
+
+function Store(locationName, minCustomersPerHour, maxCustomersPerHour, avgCookiesPerSale) {
+  this.name = locationName;
+  this.minCustomersPerHour = minCustomersPerHour;
+  this.maxCustomersPerHour = maxCustomersPerHour;
+  this.avgCookiesPerSale = avgCookiesPerSale;
+  this.salesRecord = [];
+}
+
+Store.prototype.customersPerHour = function() {
+  return Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
+}
+
+Store.prototype.simulatedSales = function() {
+  var simSalesThisHour = 0;
+  var totalSimSales = 0;
+  // Reset record in case method has been previously called
+  this.salesRecord = [];
+
+  // Loop runs once for each hour
+  for(var i = 0; i < 15; i++) {
+    // Create the timestamp
+    var time = i + 6;
+    if(time > 12) {
+      time -= 12;
+      time += 'pm: ';
+    } else {
+      time += 'am: ';
+    }
+
+    // Calculate simulated sales for this hour
+    simSalesThisHour = Math.ceil(this.customersPerHour() * this.avgCookiesPerSale);
+    this.salesRecord.push(time + simSalesThisHour + ' cookies');
+    totalSimSales += simSalesThisHour;
+  }
+  // 
+  this.salesRecord.push('Total: ' + totalSimSales + ' cookies');
+}
+
+Store.prototype.renderReport = function() {
+  // Run simulatedSales to populate the salesRecord
+  this.simulatedSales();
+  console.log(this.salesRecord);
+
+  // Target, create, append elements to sales page
+  var target = document.getElementById('sales');
+
+  // Store Name
+  var storeName = document.createElement('h1');
+  storeName.textContent = this.name;
+  console.log(storeName);
+  target.appendChild(storeName);
+
+  // Sales Report
+  var ulEl = document.createElement('ul');
+  for(var i in this.salesRecord) {
+    var liEl = document.createElement('li');
+    liEl.textContent = this.salesRecord[i];
+    ulEl.appendChild(liEl);
+  }
+  target.appendChild(ulEl);
+}
+
+// TESTING 1 2 3...
+var firstAndPikeTest = new Store('1st and Pike', 23, 65, 6.3);
+firstAndPikeTest.renderReport();
+
+
+
 //=============
 // 1st and Pike
 //=============
@@ -218,8 +290,8 @@ var postReports = function(store) {
   target.appendChild(ulEl);
 };
 
-postReports(firstAndPike);
-postReports(seaTacAirport);
-postReports(seattleCenter);
-postReports(capitolHill);
-postReports(alki);
+// postReports(firstAndPike);
+// postReports(seaTacAirport);
+// postReports(seattleCenter);
+// postReports(capitolHill);
+// postReports(alki);
