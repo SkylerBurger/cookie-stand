@@ -29,8 +29,10 @@ Store.prototype.simulatedSales = function() {
     if(time > 12) {
       time -= 12;
       time += 'pm: ';
-    } else {
+    } else if (time < 12){
       time += 'am: ';
+    } else {
+      time += 'pm: ';
     }
 
     // Calculate simulated sales for this hour
