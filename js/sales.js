@@ -9,65 +9,57 @@ function Store(locationName, minCustomersPerHour, maxCustomersPerHour, avgCookie
   this.minCustomersPerHour = minCustomersPerHour;
   this.maxCustomersPerHour = maxCustomersPerHour;
   this.avgCookiesPerSale = avgCookiesPerSale;
-  this.salesReport = [];
+  this.salesRecord = [];
+  this.totalSales = 0;
 }
 
-Store.prototype.customersPerHour = function() {
+Store.prototype.generateCustomersThisHour = function() {
   return Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
-}
+};
 
-Store.prototype.simulatedSales = function() {
-  var simSalesThisHour = 0;
-  var totalSimSales = 0;
-  // Reset record in case method has been previously called
-  this.salesReport = [];
+Store.prototype.simulatedSalesForDay = function() {
+  var salesThisHour = 0;
+  // Reset record in case method has been called previously
+  this.salesRecord = [];
 
-  // Loop runs once for each hour
+  // Loop runs once for each hour, 15 for the time being
   for(var i = 0; i < 15; i++) {
-    // Create the timestamp
-    var time = i + 6;
-    if(time > 12) {
-      time -= 12;
-      time += 'pm: ';
-    } else if (time < 12){
-      time += 'am: ';
-    } else {
-      time += 'pm: ';
-    }
-
-    // Calculate simulated sales for this hour
-    simSalesThisHour = Math.ceil(this.customersPerHour() * this.avgCookiesPerSale);
-    this.salesReport.push(time + simSalesThisHour + ' cookies');
-    totalSimSales += simSalesThisHour;
+    // Calculate sales for this hour, then push to sales report
+    // Add sales this hour to total sales for use later
+    salesThisHour = Math.ceil(this.generateCustomersThisHour() * this.avgCookiesPerSale);
+    this.salesRecord.push(salesThisHour);
+    this.totalSales += salesThisHour;
   }
-  
-  // Add total sales to the record 
-  this.salesReport.push('Total: ' + totalSimSales + ' cookies');
-}
+};
 
-Store.prototype.renderReport = function() {
-  // Run simulatedSales to populate the salesRecord
-  this.simulatedSales();
-  console.log(this.salesReport);
 
-  // Target, create, append elements to sales page
-  var target = document.getElementById('sales');
 
-  // Store Name
-  var storeName = document.createElement('h1');
-  storeName.textContent = this.name;
-  console.log(storeName);
-  target.appendChild(storeName);
 
-  // Sales Report
-  var ulEl = document.createElement('ul');
-  for(var i in this.salesReport) {
-    var liEl = document.createElement('li');
-    liEl.textContent = this.salesReport[i];
-    ulEl.appendChild(liEl);
-  }
-  target.appendChild(ulEl);
-}
+
+
+// Store.prototype.renderReport = function() {
+//   // Run simulatedSales to populate the salesRecord
+//   this.simulatedSalesForDay();
+//   console.log(this.salesReport);
+
+//   // Target, create, append elements to sales page
+//   var target = document.getElementById('sales');
+
+//   // Store Name
+//   var storeName = document.createElement('h1');
+//   storeName.textContent = this.name;
+//   console.log(storeName);
+//   target.appendChild(storeName);
+
+//   // Sales Report
+//   var ulEl = document.createElement('ul');
+//   for(var i in this.salesReport) {
+//     var liEl = document.createElement('li');
+//     liEl.textContent = this.salesReport[i];
+//     ulEl.appendChild(liEl);
+//   }
+//   target.appendChild(ulEl);
+// };
 
 //=============
 // Store Objects
@@ -83,8 +75,8 @@ var alki = new Store('Alki', 2, 16, 4.6);
 // Render Reports
 //===============
 
-firstAndPike.renderReport();
-seaTacAirport.renderReport();
-seattleCenter.renderReport();
-capitolHill.renderReport();
-alki.renderReport();
+// firstAndPike.renderReport();
+// seaTacAirport.renderReport();
+// seattleCenter.renderReport();
+// capitolHill.renderReport();
+// alki.renderReport();
