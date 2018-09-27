@@ -58,6 +58,42 @@ Store.prototype.renderRow = function() {
   return trEl;
 };
 
+//==========
+// Functions
+//==========
+
+var renderHeader = function() {
+  var trEl = document.createElement('tr');
+  var thEl = document.createElement('th');
+  
+  // First cell is blank
+  trEl.appendChild(thEl);
+
+  // Create hours (15 for now), trEls, and append to row
+  for(var i = 0; i < 15; i++) {
+    var time = i + 6; // 6AM is the opening hour
+
+    if(time < 12) {
+      time += ':00am';
+    } else if(time > 12) {
+      time -= 12;
+      time += ':00pm';
+    } else {
+      time += ':00pm'
+    }
+
+    var thEl = document.createElement('th');
+    thEl.textContent = time;
+    trEl.appendChild(thEl);
+  }
+
+  thEl.textContent = 'Daily Location Total';
+  trEl.appendChild(thEl);
+  return trEl;
+}
+
+
+
 //=============
 // Store Objects
 //=============
@@ -67,5 +103,6 @@ var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
 var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
+var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
 
