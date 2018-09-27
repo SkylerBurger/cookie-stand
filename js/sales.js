@@ -43,19 +43,25 @@ Store.prototype.renderRow = function() {
 
   // Loop through hours to create table data elements from sales
   // then append to row
+  var tdEl = document.createElement('td');
+
   for(var i in this.salesRecord) {
-    var tdEl = document.createElement('td');
+    var tBodyEl = document.createElement('tbody');
+    tdEl = document.createElement('td');
     tdEl.textContent = this.salesRecord[i];
-    console.log(tdEl);
+    console.log(tdEl); // Test
     trEl.appendChild(tdEl);
   }
 
   // Create total sales table data and append to row
+  tdEl = document.createElement('td');
   tdEl.textContent = this.totalSales;
+  console.log(tdEl); // Test
   trEl.appendChild(tdEl);
+  tBodyEl.appendChild(trEl);
 
   // Return row
-  return trEl;
+  return tBodyEl;
 };
 
 //==========
@@ -63,9 +69,10 @@ Store.prototype.renderRow = function() {
 //==========
 
 var renderHeader = function() {
+  var tHeadEl = document.createElement('thead');
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
-  
+
   // First cell is blank
   trEl.appendChild(thEl);
 
@@ -79,24 +86,66 @@ var renderHeader = function() {
       time -= 12;
       time += ':00pm';
     } else {
-      time += ':00pm'
+      time += ':00pm';
     }
 
-    var thEl = document.createElement('th');
+    thEl = document.createElement('th');
     thEl.textContent = time;
     trEl.appendChild(thEl);
   }
 
   thEl.textContent = 'Daily Location Total';
   trEl.appendChild(thEl);
-  return trEl;
-}
+
+  // Append row to thead and return
+  tHeadEl.appendChild(trEl);
+  return tHeadEl;
+};
+
+var renderFooter = function(storeArray) {
+  var companyTotal = 0; // Container for sum used in final cell
+  var tFootEl = document.createElement('tfoot');
+  var trEl = document.createElement('tr');
+
+  // Create and append the first cell
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Totals';
+  trEl.appendChild(thEl);
+
+  // Loop to create and append hourly sales totals
+  var tdEl = document.createElement('td');
+  for(var i = 0; i < 15; i++) {
+    var hourTotal = 0;
+
+    // Add each location's sales for the hour together
+    for(var j in storeArray) {
+      hourTotal += storeArray[j][i];
+    }
+    companyTotal += hourTotal;
+    tdEl = document.createElement('td');
+    tdEl.textContent = hourTotal;
+    trEl.appendChild(tdEl);
+  }
+
+  // Create and append company sales total for the day
+  tdEl = document.createElement('td');
+  tdEl.textContent = companyTotal;
+  trEl.appendChild(tdEl);
+
+  // Append row to tfoot and return
+  tFootEl.appendChild(trEl);
+  return tFootEl;
+};
 
 
+var renderTable = function(storeArray) {
 
-//=============
+
+};
+
+//==============
 // Store Objects
-//=============
+//==============
 
 var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
 var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
@@ -104,5 +153,7 @@ var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+renderFooter(allStores);
 
 
