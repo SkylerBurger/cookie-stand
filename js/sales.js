@@ -11,6 +11,7 @@ function Store(locationName, minCustomersPerHour, maxCustomersPerHour, avgCookie
   this.avgCookiesPerSale = avgCookiesPerSale;
   this.salesRecord = [];
   this.customersEachHour = [];
+  this.staffEachHour= [];
   this.totalSales = 0;
 }
 
@@ -35,38 +36,6 @@ Store.prototype.simulateSalesForDay = function() {
     this.salesRecord.push(salesThisHour);
     this.totalSales += salesThisHour;
   }
-};
-
-Store.prototype.renderStaffingRow = function() {
-  // Create table row element
-  var trEl = document.createElement('tr');
-
-  // Create location name table header and append to row
-  var thEl = document.createElement('th');
-  thEl.textContent = this.locationName;
-  trEl.appendChild(thEl);
-
-  // Loop through hours to create table data elements from sales
-  // then append to row
-  var tdEl = document.createElement('td');
-  var staffNeeded = 0;
-
-  for(var i in this.customersEachHour) {
-    tdEl = document.createElement('td');
-    // Staff needed is 1 per 20 customers
-    staffNeeded = Math.ceil(this.customersEachHour[i] / 20);
-
-    // Minimum of 2 staff per hour
-    if(staffNeeded < 2) {
-      staffNeeded = 2;
-    }
-
-    tdEl.textContent = staffNeeded;
-    trEl.appendChild(tdEl);
-  }
-
-  // Return row
-  return trEl;
 };
 
 Store.prototype.renderSalesRow = function() {
@@ -100,11 +69,44 @@ Store.prototype.renderSalesRow = function() {
   return trEl;
 };
 
+Store.prototype.renderStaffingRow = function() {
+  // Create table row element
+  var trEl = document.createElement('tr');
+
+  // Create location name table header and append to row
+  var thEl = document.createElement('th');
+  thEl.textContent = this.locationName;
+  trEl.appendChild(thEl);
+
+  // Loop through hours to create table data elements from customersEachHour
+  // then append to row
+  var tdEl = document.createElement('td');
+  var staffNeeded = 0;
+
+  for(var i in this.customersEachHour) {
+    tdEl = document.createElement('td');
+    // Staff needed is 1 per 20 customers
+    staffNeeded = Math.ceil(this.customersEachHour[i] / 20);
+
+    if(staffNeeded < 2) {
+      staffNeeded = 2; // Minimum of 2 staff per hour
+    }
+
+    tdEl.textContent = staffNeeded;
+    trEl.appendChild(tdEl);
+    this.staffEachHour.push(staffNeeded);
+  }
+
+  // Return row
+  return trEl;
+};
+
+
 //==========
 // Functions
 //==========
 
-var renderHeader = function() {
+var renderHeader = function(isTotalNeeded) {
   var tHeadEl = document.createElement('thead');
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
@@ -130,9 +132,12 @@ var renderHeader = function() {
     trEl.appendChild(thEl);
   }
 
-  thEl = document.createElement('th');
-  thEl.textContent = 'Daily Location Total';
-  trEl.appendChild(thEl);
+  // Only need this final column for sales table
+  if(isTotalNeeded){
+    thEl = document.createElement('th');
+    thEl.textContent = 'Daily Location Total';
+    trEl.appendChild(thEl);
+  }
 
   // Append row to thead and return
   tHeadEl.appendChild(trEl);
@@ -177,6 +182,36 @@ var renderSalesFooter = function(storeArray) {
   return tFootEl;
 };
 
+var renderStaffingFooter = function(storeArray) {
+  var tFootEl = document.createElement('tfoot');
+  var trEl = document.createElement('tr');
+
+  // Create and append the first cell
+  var thEl = document.createElement('th');
+  thEl.textContent = 'Totals';
+  trEl.appendChild(thEl);
+
+  // Loop to create and append hourly sales totals
+  var tdEl = document.createElement('td');
+  for(var i = 0; i < 15; i++) {
+    var staffTotal = 0;
+
+    // Add each location's staffing for the hour together
+    for(var j in storeArray) {
+      staffTotal += storeArray[j].staffEachHour[i];
+      console.log(`Trying to add in ${storeArray[j].staffEachHour[i]}`);
+    }
+    tdEl = document.createElement('td');
+    tdEl.textContent = staffTotal;
+    console.log(tdEl);
+    trEl.appendChild(tdEl);
+  }
+
+  // Append row to tfoot and return
+  tFootEl.appendChild(trEl);
+  return tFootEl;
+};
+
 var renderSalesTable = function(storeArray) {
   // Run simulateSalesFor Day for each store
   for(var i in storeArray) {
@@ -186,8 +221,8 @@ var renderSalesTable = function(storeArray) {
   // Reference the table element in the DOM
   var tableEl = document.getElementById('report');
 
-  // Create and append thead
-  tableEl.appendChild(renderHeader());
+  // Create and append thead, boolean is to generate total sales column
+  tableEl.appendChild(renderHeader(true));
 
   // Create tbody, create each row, append to table
   var tBodyEl = document.createElement('tbody');
@@ -200,7 +235,24 @@ var renderSalesTable = function(storeArray) {
   tableEl.appendChild(renderSalesFooter(storeArray));
 };
 
+var renderStaffingTable = function(storeArray) {
+  // Reference the table element in the DOM
+  var tableEl = document.getElementById('staffing');
 
+  // Create and append thead, boolean is to generate total sales column
+  tableEl.appendChild(renderHeader(false));
+
+  // Create tbody, create each row, append to table
+  var tBodyEl = document.createElement('tbody');
+  for(var j in storeArray) {
+    tBodyEl.appendChild(storeArray[j].renderStaffingRow());
+  }
+  tableEl.appendChild(tBodyEl);
+
+  // Create and append tfoot
+  tableEl.appendChild(renderStaffingFooter(storeArray));
+
+};
 
 //==============
 // Store Objects
@@ -214,5 +266,5 @@ var alki = new Store('Alki', 2, 16, 4.6);
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
 renderSalesTable(allStores);
-
+renderStaffingTable(allStores);
 
