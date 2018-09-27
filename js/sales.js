@@ -10,6 +10,7 @@ function Store(locationName, minCustomersPerHour, maxCustomersPerHour, avgCookie
   this.maxCustomersPerHour = maxCustomersPerHour;
   this.avgCookiesPerSale = avgCookiesPerSale;
   this.salesRecord = [];
+  this.customersEachHour = [];
   this.totalSales = 0;
 }
 
@@ -19,14 +20,18 @@ Store.prototype.generateCustomersThisHour = function() {
 
 Store.prototype.simulateSalesForDay = function() {
   var salesThisHour = 0;
+  var customersThisHour = 0;
   // Reset record in case method has been called previously
   this.salesRecord = [];
 
   // Loop runs once for each hour, 15 hours for the time being
   for(var i = 0; i < 15; i++) {
+    // Generate customers for the hour and push to object's array
+    customersThisHour = this.generateCustomersThisHour();
+    this.customersEachHour.push(customersThisHour);
     // Calculate sales for this hour, then push to sales report
     // Add sales this hour to total sales for use later
-    salesThisHour = Math.ceil(this.generateCustomersThisHour() * this.avgCookiesPerSale);
+    salesThisHour = Math.ceil(customersThisHour * this.avgCookiesPerSale);
     this.salesRecord.push(salesThisHour);
     this.totalSales += salesThisHour;
   }
@@ -140,7 +145,6 @@ var renderFooter = function(storeArray) {
   return tFootEl;
 };
 
-
 var renderTable = function(storeArray) {
   // Run simulateSalesFor Day for each store
   for(var i in storeArray) {
@@ -162,8 +166,6 @@ var renderTable = function(storeArray) {
 
   // Create and append tfoot
   tableEl.appendChild(renderFooter(storeArray));
-
-
 };
 
 //==============
