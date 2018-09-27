@@ -37,7 +37,39 @@ Store.prototype.simulateSalesForDay = function() {
   }
 };
 
-Store.prototype.renderRow = function() {
+Store.prototype.renderStaffingRow = function() {
+  // Create table row element
+  var trEl = document.createElement('tr');
+
+  // Create location name table header and append to row
+  var thEl = document.createElement('th');
+  thEl.textContent = this.locationName;
+  trEl.appendChild(thEl);
+
+  // Loop through hours to create table data elements from sales
+  // then append to row
+  var tdEl = document.createElement('td');
+  var staffNeeded = 0;
+
+  for(var i in this.customersEachHour) {
+    tdEl = document.createElement('td');
+    // Staff needed is 1 per 20 customers
+    staffNeeded = Math.ceil(this.customersEachHour[i] / 20);
+
+    // Minimum of 2 staff per hour
+    if(staffNeeded < 2) {
+      staffNeeded = 2;
+    }
+
+    tdEl.textContent = staffNeeded;
+    trEl.appendChild(tdEl);
+  }
+
+  // Return row
+  return trEl;
+};
+
+Store.prototype.renderSalesRow = function() {
   // Create table row element
   var trEl = document.createElement('tr');
 
@@ -107,7 +139,7 @@ var renderHeader = function() {
   return tHeadEl;
 };
 
-var renderFooter = function(storeArray) {
+var renderSalesFooter = function(storeArray) {
   console.log(storeArray);
   var companyTotal = 0; // Container for sum used in final cell
   var tFootEl = document.createElement('tfoot');
@@ -145,7 +177,7 @@ var renderFooter = function(storeArray) {
   return tFootEl;
 };
 
-var renderTable = function(storeArray) {
+var renderSalesTable = function(storeArray) {
   // Run simulateSalesFor Day for each store
   for(var i in storeArray) {
     storeArray[i].simulateSalesForDay();
@@ -160,13 +192,15 @@ var renderTable = function(storeArray) {
   // Create tbody, create each row, append to table
   var tBodyEl = document.createElement('tbody');
   for(var j in storeArray) {
-    tBodyEl.appendChild(storeArray[j].renderRow());
+    tBodyEl.appendChild(storeArray[j].renderSalesRow());
   }
   tableEl.appendChild(tBodyEl);
 
   // Create and append tfoot
-  tableEl.appendChild(renderFooter(storeArray));
+  tableEl.appendChild(renderSalesFooter(storeArray));
 };
+
+
 
 //==============
 // Store Objects
@@ -179,6 +213,6 @@ var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
-renderTable(allStores);
+renderSalesTable(allStores);
 
 
