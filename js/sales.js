@@ -17,7 +17,7 @@ Store.prototype.generateCustomersThisHour = function() {
   return Math.floor(Math.random() * (this.maxCustomersPerHour - this.minCustomersPerHour + 1)) + this.minCustomersPerHour;
 };
 
-Store.prototype.simulatedSalesForDay = function() {
+Store.prototype.simulateSalesForDay = function() {
   var salesThisHour = 0;
   // Reset record in case method has been called previously
   this.salesRecord = [];
@@ -46,7 +46,6 @@ Store.prototype.renderRow = function() {
   var tdEl = document.createElement('td');
 
   for(var i in this.salesRecord) {
-    var tBodyEl = document.createElement('tbody');
     tdEl = document.createElement('td');
     tdEl.textContent = this.salesRecord[i];
     console.log(tdEl); // Test
@@ -58,10 +57,10 @@ Store.prototype.renderRow = function() {
   tdEl.textContent = this.totalSales;
   console.log(tdEl); // Test
   trEl.appendChild(tdEl);
-  tBodyEl.appendChild(trEl);
+  console.log(trEl);
 
   // Return row
-  return tBodyEl;
+  return trEl;
 };
 
 //==========
@@ -88,12 +87,13 @@ var renderHeader = function() {
     } else {
       time += ':00pm';
     }
-
+    console.log(`time is ${time} and i is ${i}`);
     thEl = document.createElement('th');
     thEl.textContent = time;
     trEl.appendChild(thEl);
   }
 
+  thEl = document.createElement('th');
   thEl.textContent = 'Daily Location Total';
   trEl.appendChild(thEl);
 
@@ -103,6 +103,7 @@ var renderHeader = function() {
 };
 
 var renderFooter = function(storeArray) {
+  console.log(storeArray);
   var companyTotal = 0; // Container for sum used in final cell
   var tFootEl = document.createElement('tfoot');
   var trEl = document.createElement('tr');
@@ -119,11 +120,13 @@ var renderFooter = function(storeArray) {
 
     // Add each location's sales for the hour together
     for(var j in storeArray) {
-      hourTotal += storeArray[j][i];
+      hourTotal += storeArray[j].salesRecord[i];
+      console.log(`Trying to add in ${storeArray[j].salesRecord[i]}`);
     }
     companyTotal += hourTotal;
     tdEl = document.createElement('td');
     tdEl.textContent = hourTotal;
+    console.log(tdEl);
     trEl.appendChild(tdEl);
   }
 
@@ -139,6 +142,26 @@ var renderFooter = function(storeArray) {
 
 
 var renderTable = function(storeArray) {
+  // Run simulateSalesFor Day for each store
+  for(var i in storeArray) {
+    storeArray[i].simulateSalesForDay();
+  }
+
+  // Reference the table element in the DOM
+  var tableEl = document.getElementById('report');
+
+  // Create and append thead
+  tableEl.appendChild(renderHeader());
+
+  // Create tbody, create each row, append to table
+  var tBodyEl = document.createElement('tbody');
+  for(var j in storeArray) {
+    tBodyEl.appendChild(storeArray[j].renderRow());
+  }
+  tableEl.appendChild(tBodyEl);
+
+  // Create and append tfoot
+  tableEl.appendChild(renderFooter(storeArray));
 
 
 };
@@ -154,6 +177,6 @@ var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
-renderFooter(allStores);
+renderTable(allStores);
 
 
