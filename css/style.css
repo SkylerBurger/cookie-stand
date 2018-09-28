@@ -11,6 +11,7 @@ header {
 
 header h1, h2 {
     font-family: 'Fredericka the Great';
+    /* font-weight used to keep Google Font in header from appearing bold */
     font-weight: 400;
     text-align: center;
 }
@@ -23,9 +24,14 @@ td {
     font-family: 'Chakra Petch';
     text-align: center;
     border: 1px black solid;
+    border-collapse: collapse;
 }
 
 th {
     font-family: 'Josefin Slab';
     font-weight: 400;
+}
+
+tr:hover {
+    background-color: rgb(164, 253, 246);
 }
