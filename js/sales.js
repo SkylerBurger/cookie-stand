@@ -38,8 +38,10 @@ Store.prototype.simulateSalesForDay = function() {
   }
 };
 
-Store.prototype.renderSalesRow = function() {
-  // Create table row element
+Store.prototype.renderRow = function(rowType) {
+  // This method can handle both sales and staffing rows
+  // When called, user should specify rowType of 'sales' or 'staffing'
+
   var trEl = document.createElement('tr');
 
   // Create location name table header and append to row
@@ -47,54 +49,37 @@ Store.prototype.renderSalesRow = function() {
   thEl.textContent = this.locationName;
   trEl.appendChild(thEl);
 
-  // Loop through hours to create table data elements from sales
-  // then append to row
   var tdEl = document.createElement('td');
+  if(rowType === 'sales') {
 
-  for(var i in this.salesRecord) {
-    tdEl = document.createElement('td');
-    tdEl.textContent = this.salesRecord[i];
-    console.log(tdEl); // Test
-    trEl.appendChild(tdEl);
-  }
-
-  // Create total sales table data and append to row
-  tdEl = document.createElement('td');
-  tdEl.textContent = this.totalSales;
-  console.log(tdEl); // Test
-  trEl.appendChild(tdEl);
-  console.log(trEl);
-
-  // Return row
-  return trEl;
-};
-
-Store.prototype.renderStaffingRow = function() {
-  // Create table row element
-  var trEl = document.createElement('tr');
-
-  // Create location name table header and append to row
-  var thEl = document.createElement('th');
-  thEl.textContent = this.locationName;
-  trEl.appendChild(thEl);
-
-  // Loop through hours to create table data elements from customersEachHour
-  // then append to row
-  var tdEl = document.createElement('td');
-  var staffNeeded = 0;
-
-  for(var i in this.customersEachHour) {
-    tdEl = document.createElement('td');
-    // Staff needed is 1 per 20 customers
-    staffNeeded = Math.ceil(this.customersEachHour[i] / 20);
-
-    if(staffNeeded < 2) {
-      staffNeeded = 2; // Minimum of 2 staff per hour
+    // Create sales cell for each hour
+    for(var i in this.salesRecord) {
+      tdEl = document.createElement('td');
+      tdEl.textContent = this.salesRecord[i];
+      trEl.appendChild(tdEl);
     }
 
-    tdEl.textContent = staffNeeded;
+    // Create total sales cell
+    tdEl = document.createElement('td');
+    tdEl.textContent = this.totalSales;
     trEl.appendChild(tdEl);
-    this.staffEachHour.push(staffNeeded);
+
+  } else if(rowType === 'staffing') {
+
+    var staffNeeded = 0;
+    for(var j in this.customersEachHour) {
+      tdEl = document.createElement('td');
+      // Staff needed is 1 per 20 customers
+      staffNeeded = Math.ceil(this.customersEachHour[j] / 20);
+
+      if(staffNeeded < 2) {
+        staffNeeded = 2; // Minimum of 2 staff per hour
+      }
+
+      tdEl.textContent = staffNeeded;
+      trEl.appendChild(tdEl);
+      this.staffEachHour.push(staffNeeded);
+    }
   }
 
   // Return row
@@ -211,7 +196,7 @@ var renderSalesTable = function(storeArray) {
   // Create tbody, create each row, append to table
   var tBodyEl = document.createElement('tbody');
   for(var j in storeArray) {
-    tBodyEl.appendChild(storeArray[j].renderSalesRow());
+    tBodyEl.appendChild(storeArray[j].renderRow('sales'));
   }
   tableEl.appendChild(tBodyEl);
 
@@ -230,7 +215,7 @@ var renderStaffingTable = function(storeArray) {
   // Create tbody, create each row, append to table
   var tBodyEl = document.createElement('tbody');
   for(var j in storeArray) {
-    tBodyEl.appendChild(storeArray[j].renderStaffingRow());
+    tBodyEl.appendChild(storeArray[j].renderRow('staffing'));
   }
   tableEl.appendChild(tBodyEl);
 
