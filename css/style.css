@@ -1,0 +1,31 @@
+body {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(150deg, rgb(26, 81, 88) 5%, rgb(161, 231, 208) 90%);
+    background-attachment: fixed;
+}
+
+header {
+    font-size: 48px;
+}
+
+header h1, h2 {
+    font-family: 'Fredericka the Great';
+    font-weight: 400;
+    text-align: center;
+}
+
+table {
+    border: 1px black solid;
+}
+
+td {
+    font-family: 'Chakra Petch';
+    text-align: center;
+    border: 1px black solid;
+}
+
+th {
+    font-family: 'Josefin Slab';
+    font-weight: 400;
+}
