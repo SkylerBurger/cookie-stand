@@ -144,111 +144,50 @@ var renderHeader = function(isTotalNeeded) {
   return tHeadEl;
 };
 
-// var renderSalesFooter = function(storeArray) {
-//   console.log(storeArray);
-//   var companyTotal = 0; // Container for sum used in final cell
-//   var tFootEl = document.createElement('tfoot');
-//   var trEl = document.createElement('tr');
-
-//   // Create and append the first cell
-//   var thEl = document.createElement('th');
-//   thEl.textContent = 'Totals';
-//   trEl.appendChild(thEl);
-
-//   // Loop to create and append hourly sales totals
-//   var tdEl = document.createElement('td');
-//   for(var i = 0; i < 15; i++) {
-//     var hourTotal = 0;
-
-//     // Add each location's sales for the hour together
-//     for(var j in storeArray) {
-//       hourTotal += storeArray[j].salesRecord[i];
-//       console.log(`Trying to add in ${storeArray[j].salesRecord[i]}`);
-//     }
-//     companyTotal += hourTotal;
-//     tdEl = document.createElement('td');
-//     tdEl.textContent = hourTotal;
-//     console.log(tdEl);
-//     trEl.appendChild(tdEl);
-//   }
-
-//   // Create and append company sales total for the day
-//   tdEl = document.createElement('td');
-//   tdEl.textContent = companyTotal;
-//   trEl.appendChild(tdEl);
-
-//   // Append row to tfoot and return
-//   tFootEl.appendChild(trEl);
-//   return tFootEl;
-// };
-
 var renderFooter = function(storeArray, footerType) {
-  // This function can handle both sales and staffing.
-  // The array the function references changes depending
-  // on whether footerType equals 'sales' or 'staffing'
-
-  if(footerType === 'sales'){
-    var companyTotal = 0; // Container for sum used in final cell
-    var arrayData = 'salesRecord[i]';
-  }
+  // This function can handle both sales and staffing footers.
+  // When called, user should specify footerType of 'sales' or 'staffing'
+  // Defaults to staffing if second parameter is omitted
 
   var tFootEl = document.createElement('tfoot');
   var trEl = document.createElement('tr');
-
+  
   // Create and append the first cell
   var thEl = document.createElement('th');
   thEl.textContent = 'Totals';
   trEl.appendChild(thEl);
-
-  // Loop to create and append hourly sales totals
+  
+  // Loop to create and append hourly totals
+  var companyTotal = 0; // Container for sum used in final cell for sales
   var tdEl = document.createElement('td');
-  for(var i = 0; i < 15; i++) {
-    var hourTotal = 0;
+  for(var i = 0; i < 15; i++) { // 15 hours in day
+    var sumTotal = 0;
 
-    // Add each location's sales for the hour together
     for(var j in storeArray) {
-      hourTotal += storeArray[j][arrayData];
+      if(footerType === 'sales') {
+        // Add each location's sales for the hour together
+        sumTotal += storeArray[j].salesRecord[i];
+      } else {
+        // Add each location's staffing for the hour together
+        sumTotal += storeArray[j].staffEachHour[i];
+      }
     }
-    
-    companyTotal += hourTotal;
+
+    if(footerType === 'sales') {
+      // Keep running total of sales
+      companyTotal += sumTotal;
+    }
+
     tdEl = document.createElement('td');
-    tdEl.textContent = hourTotal;
+    tdEl.textContent = sumTotal;
     console.log(tdEl);
     trEl.appendChild(tdEl);
   }
 
-  // Create and append company sales total for the day
-  tdEl = document.createElement('td');
-  tdEl.textContent = companyTotal;
-  trEl.appendChild(tdEl);
-
-  // Append row to tfoot and return
-  tFootEl.appendChild(trEl);
-  return tFootEl;
-};
-
-var renderStaffingFooter = function(storeArray) {
-  var tFootEl = document.createElement('tfoot');
-  var trEl = document.createElement('tr');
-
-  // Create and append the first cell
-  var thEl = document.createElement('th');
-  thEl.textContent = 'Totals';
-  trEl.appendChild(thEl);
-
-  // Loop to create and append hourly sales totals
-  var tdEl = document.createElement('td');
-  for(var i = 0; i < 15; i++) {
-    var staffTotal = 0;
-
-    // Add each location's staffing for the hour together
-    for(var j in storeArray) {
-      staffTotal += storeArray[j].staffEachHour[i];
-      console.log(`Trying to add in ${storeArray[j].staffEachHour[i]}`);
-    }
+  if(footerType === 'sales') {
+    // Create and append company sales total for the day
     tdEl = document.createElement('td');
-    tdEl.textContent = staffTotal;
-    console.log(tdEl);
+    tdEl.textContent = companyTotal;
     trEl.appendChild(tdEl);
   }
 
@@ -277,7 +216,8 @@ var renderSalesTable = function(storeArray) {
   tableEl.appendChild(tBodyEl);
 
   // Create and append tfoot
-  tableEl.appendChild(renderSalesFooter(storeArray));
+  // tableEl.appendChild(renderSalesFooter(storeArray));
+  tableEl.appendChild(renderFooter(storeArray, 'sales'));
 };
 
 var renderStaffingTable = function(storeArray) {
@@ -295,7 +235,8 @@ var renderStaffingTable = function(storeArray) {
   tableEl.appendChild(tBodyEl);
 
   // Create and append tfoot
-  tableEl.appendChild(renderStaffingFooter(storeArray));
+  // tableEl.appendChild(renderStaffingFooter(storeArray));
+  tableEl.appendChild(renderFooter(storeArray, 'staffing'));
 
 };
 
