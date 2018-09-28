@@ -144,9 +144,54 @@ var renderHeader = function(isTotalNeeded) {
   return tHeadEl;
 };
 
-var renderSalesFooter = function(storeArray) {
-  console.log(storeArray);
-  var companyTotal = 0; // Container for sum used in final cell
+// var renderSalesFooter = function(storeArray) {
+//   console.log(storeArray);
+//   var companyTotal = 0; // Container for sum used in final cell
+//   var tFootEl = document.createElement('tfoot');
+//   var trEl = document.createElement('tr');
+
+//   // Create and append the first cell
+//   var thEl = document.createElement('th');
+//   thEl.textContent = 'Totals';
+//   trEl.appendChild(thEl);
+
+//   // Loop to create and append hourly sales totals
+//   var tdEl = document.createElement('td');
+//   for(var i = 0; i < 15; i++) {
+//     var hourTotal = 0;
+
+//     // Add each location's sales for the hour together
+//     for(var j in storeArray) {
+//       hourTotal += storeArray[j].salesRecord[i];
+//       console.log(`Trying to add in ${storeArray[j].salesRecord[i]}`);
+//     }
+//     companyTotal += hourTotal;
+//     tdEl = document.createElement('td');
+//     tdEl.textContent = hourTotal;
+//     console.log(tdEl);
+//     trEl.appendChild(tdEl);
+//   }
+
+//   // Create and append company sales total for the day
+//   tdEl = document.createElement('td');
+//   tdEl.textContent = companyTotal;
+//   trEl.appendChild(tdEl);
+
+//   // Append row to tfoot and return
+//   tFootEl.appendChild(trEl);
+//   return tFootEl;
+// };
+
+var renderFooter = function(storeArray, footerType) {
+  // This function can handle both sales and staffing.
+  // The array the function references changes depending
+  // on whether footerType equals 'sales' or 'staffing'
+
+  if(footerType === 'sales'){
+    var companyTotal = 0; // Container for sum used in final cell
+    var arrayData = 'salesRecord[i]';
+  }
+
   var tFootEl = document.createElement('tfoot');
   var trEl = document.createElement('tr');
 
@@ -162,9 +207,9 @@ var renderSalesFooter = function(storeArray) {
 
     // Add each location's sales for the hour together
     for(var j in storeArray) {
-      hourTotal += storeArray[j].salesRecord[i];
-      console.log(`Trying to add in ${storeArray[j].salesRecord[i]}`);
+      hourTotal += storeArray[j][arrayData];
     }
+    
     companyTotal += hourTotal;
     tdEl = document.createElement('td');
     tdEl.textContent = hourTotal;
@@ -263,6 +308,7 @@ var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
 var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
 var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
+
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
 renderSalesTable(allStores);
