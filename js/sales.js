@@ -91,7 +91,10 @@ Store.prototype.renderRow = function(rowType) {
 // Functions
 //==========
 
-var renderHeader = function(isTotalNeeded) {
+var renderHeader = function(headerType) {
+  // This function can create headers for sales and staffing
+  // When called, user should specify 'sales' or 'staffing'
+
   var tHeadEl = document.createElement('thead');
   var trEl = document.createElement('tr');
   var thEl = document.createElement('th');
@@ -118,7 +121,7 @@ var renderHeader = function(isTotalNeeded) {
   }
 
   // Only need this final column for sales table
-  if(isTotalNeeded){
+  if(headerType === 'sales'){
     thEl = document.createElement('th');
     thEl.textContent = 'Daily Location Total';
     trEl.appendChild(thEl);
@@ -136,12 +139,12 @@ var renderFooter = function(storeArray, footerType) {
 
   var tFootEl = document.createElement('tfoot');
   var trEl = document.createElement('tr');
-  
+
   // Create and append the first cell
   var thEl = document.createElement('th');
   thEl.textContent = 'Totals';
   trEl.appendChild(thEl);
-  
+
   // Loop to create and append hourly totals
   var companyTotal = 0; // Container for sum used in final cell for sales
   var tdEl = document.createElement('td');
@@ -181,48 +184,33 @@ var renderFooter = function(storeArray, footerType) {
   return tFootEl;
 };
 
-var renderSalesTable = function(storeArray) {
+var renderTables = function(storeArray) {
   // Run simulateSalesFor Day for each store
   for(var i in storeArray) {
     storeArray[i].simulateSalesForDay();
   }
 
-  // Reference the table element in the DOM
-  var tableEl = document.getElementById('report');
+  // Reference the table elements in the DOM
+  var salesTableEl = document.getElementById('sales');
+  var staffTableEl = document.getElementById('staffing');
 
-  // Create and append thead, boolean is to generate total sales column
-  tableEl.appendChild(renderHeader(true));
-
-  // Create tbody, create each row, append to table
-  var tBodyEl = document.createElement('tbody');
-  for(var j in storeArray) {
-    tBodyEl.appendChild(storeArray[j].renderRow('sales'));
-  }
-  tableEl.appendChild(tBodyEl);
-
-  // Create and append tfoot
-  // tableEl.appendChild(renderSalesFooter(storeArray));
-  tableEl.appendChild(renderFooter(storeArray, 'sales'));
-};
-
-var renderStaffingTable = function(storeArray) {
-  // Reference the table element in the DOM
-  var tableEl = document.getElementById('staffing');
-
-  // Create and append thead, boolean is to generate total sales column
-  tableEl.appendChild(renderHeader(false));
+  // Create and append thead
+  salesTableEl.appendChild(renderHeader('sales'));
+  staffTableEl.appendChild(renderHeader('staffing'));
 
   // Create tbody, create each row, append to table
-  var tBodyEl = document.createElement('tbody');
+  var salesTBodyEl = document.createElement('tbody');
+  var staffingTBodyEl = document.createElement('tbody');
   for(var j in storeArray) {
-    tBodyEl.appendChild(storeArray[j].renderRow('staffing'));
+    salesTBodyEl.appendChild(storeArray[j].renderRow('sales'));
+    staffingTBodyEl.appendChild(storeArray[j].renderRow('staffing'));
   }
-  tableEl.appendChild(tBodyEl);
+  salesTableEl.appendChild(salesTBodyEl);
+  staffTableEl.appendChild(staffingTBodyEl);
 
   // Create and append tfoot
-  // tableEl.appendChild(renderStaffingFooter(storeArray));
-  tableEl.appendChild(renderFooter(storeArray, 'staffing'));
-
+  salesTableEl.appendChild(renderFooter(storeArray, 'sales'));
+  staffTableEl.appendChild(renderFooter(storeArray, 'staffing'));
 };
 
 //==============
@@ -237,6 +225,5 @@ var alki = new Store('Alki', 2, 16, 4.6);
 
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
 
-renderSalesTable(allStores);
-renderStaffingTable(allStores);
+renderTables(allStores);
 
