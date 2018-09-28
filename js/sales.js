@@ -86,7 +86,6 @@ Store.prototype.renderRow = function(rowType) {
   return trEl;
 };
 
-
 //==========
 // Functions
 //==========
@@ -224,6 +223,10 @@ var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
 var alki = new Store('Alki', 2, 16, 4.6);
 
 var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
+//===============
+// Function Calls
+//===============
 
 renderTables(allStores);
 
