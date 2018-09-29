@@ -1,8 +1,8 @@
 'use strict';
 
-//===============================
-// Global Variables and Listeners
-//===============================
+//=================
+// Global Variables
+//=================
 
 var newStoreForm = document.getElementById('new-store-form');
 
@@ -201,14 +201,20 @@ var renderFooter = function(storeArray, footerType) {
 };
 
 var renderTables = function(storeArray) {
-  // Run simulateSalesFor Day for each store
+  // Run simulateSalesFor Day for each store if array hasn't been populated
+  
   for(var i in storeArray) {
-    storeArray[i].simulateSalesForDay();
+    if(storeArray[i].salesRecord.length === 0){
+      storeArray[i].simulateSalesForDay();
+    }
   }
 
   // Reference the table elements in the DOM
   var salesTableEl = document.getElementById('sales');
   var staffTableEl = document.getElementById('staffing');
+
+  // Clear children elements of the tables, if any
+  // salesTableEl.children.clear();
 
   // Create and append thead
   salesTableEl.appendChild(renderHeader('sales'));
@@ -242,10 +248,11 @@ var handleNewStore = function(event) {
   console.log(max);
   var average = parseInt(event.target['avg-cookies-per-sale'].value);
   console.log(average);
-  
+
   // Create store and add to array
   var newStore = new Store(name, min, max, average);
   allStores.push(newStore);
+  renderTables(allStores);
 };
 
 newStoreForm.addEventListener('submit', handleNewStore);

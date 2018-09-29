@@ -54,9 +54,24 @@ tbody tr:hover, tfoot tr:hover { /* Excludes thead from highlighting */
     background-color: rgb(164, 253, 246);
 }
 
-/*
+/*=====
+  FORMS
+  =====*/
 
+form {
+    max-width: 500px;
+    min-width: 300px;
+    margin: 30px auto;
+}
 
+legend {
+    font-family: 'Fredericka the Great';
+    /* font-weight used to keep Google Font in header from appearing bold */
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
 /*=====
   LINKS
