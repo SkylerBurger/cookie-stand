@@ -22,7 +22,30 @@
         <h2>Cookie Tossers Needed:</h2>
         <table id="staffing"></table>
     </section>
-    <a class="page-link" href="index.html">Home Page</a>
+    <section>
+        <form id="new-store-form">
+            <fieldset>
+                <legend>New Store Form</legend>
+
+                <label for="store-location-name">Store Location Name</label>
+                <input name="store-location-name" type="text" placeholder="location name">
+
+                <p>Customers Per Hour</p>
+                <label for="min-customers-per-hour">Min</label>
+                <input name="min-customers-per-hour" type="number"> 
+                <label for="max-customers-per-hour">Max</label>
+                <input name="max-customers-per-hour" type="number">
+
+                <label for="avg-cookies-per-sale">Average Cookies Per Sale</label>
+                <input name="avg-cookies-per-sale" type="number">
+                <button type="submit">SUBMIT</button>
+            </fieldset>
+        </form>
+    </section>
+
+    <footer>
+        <a class="page-link" href="index.html">Home Page</a>
+    </footer>
 
     <script src="js/sales.js"></script>
 </body>
