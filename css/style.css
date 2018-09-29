@@ -73,6 +73,10 @@ legend {
     margin-bottom: 20px;
 }
 
+label, form p {
+    font-family: 'Josefin Slab'; 
+}
+
 /*=====
   LINKS
   =====*/
@@ -82,7 +86,7 @@ legend {
     display: block;
     margin: auto;
     /*TEXTAPPEARANCE*/
-    font-size: 48px;
+    font-size: 36px;
     font-family: 'Fredericka the Great';
     /* font-weight used to keep Google Font in header from appearing bold */
     font-weight: 400;
