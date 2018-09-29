@@ -1,5 +1,11 @@
 'use strict';
 
+//=================
+// Global Variables
+//=================
+
+var newStoreForm = document.getElementById('new-store-form');
+
 //==================
 // Store Constructor
 //==================
@@ -86,6 +92,18 @@ Store.prototype.renderRow = function(rowType) {
   return trEl;
 };
 
+//==============
+// Default Store Objects
+//==============
+
+var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
+var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
+var alki = new Store('Alki', 2, 16, 4.6);
+
+var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
 //==========
 // Functions
 //==========
@@ -113,7 +131,7 @@ var renderHeader = function(headerType) {
     } else {
       time += ':00pm';
     }
-    console.log(`time is ${time} and i is ${i}`);
+
     thEl = document.createElement('th');
     thEl.textContent = time;
     trEl.appendChild(thEl);
@@ -167,7 +185,6 @@ var renderFooter = function(storeArray, footerType) {
 
     tdEl = document.createElement('td');
     tdEl.textContent = sumTotal;
-    console.log(tdEl);
     trEl.appendChild(tdEl);
   }
 
@@ -184,14 +201,26 @@ var renderFooter = function(storeArray, footerType) {
 };
 
 var renderTables = function(storeArray) {
-  // Run simulateSalesFor Day for each store
+  // Run simulateSalesFor Day for each store if array hasn't been populated
   for(var i in storeArray) {
-    storeArray[i].simulateSalesForDay();
+    if(storeArray[i].salesRecord.length === 0){
+      storeArray[i].simulateSalesForDay();
+    }
   }
 
   // Reference the table elements in the DOM
   var salesTableEl = document.getElementById('sales');
   var staffTableEl = document.getElementById('staffing');
+
+  // Clear children elements of the tables, if any
+  // Solution by user Gabriel McAdams on this StackOverflow page
+  // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+  while (salesTableEl.firstChild) {
+    salesTableEl.removeChild(salesTableEl.firstChild);
+  }
+  while (staffTableEl.firstChild) {
+    staffTableEl.removeChild(staffTableEl.firstChild);
+  }
 
   // Create and append thead
   salesTableEl.appendChild(renderHeader('sales'));
@@ -212,18 +241,27 @@ var renderTables = function(storeArray) {
   staffTableEl.appendChild(renderFooter(storeArray, 'staffing'));
 };
 
-//==============
-// Store Objects
-//==============
+var handleNewStore = function(event) {
+  // Stop some default behavior
+  event.preventDefault();
 
-var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
-var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
-var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
-var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
-var alki = new Store('Alki', 2, 16, 4.6);
+  // Gather input from the form
+  var name = event.target['store-location-name'].value;
+  console.log(name);
+  var min = parseInt(event.target['min-customers-per-hour'].value);
+  console.log(min);
+  var max = parseInt(event.target['max-customers-per-hour'].value);
+  console.log(max);
+  var average = parseInt(event.target['avg-cookies-per-sale'].value);
+  console.log(average);
 
-var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+  // Create store and add to array
+  var newStore = new Store(name, min, max, average);
+  allStores.push(newStore);
+  renderTables(allStores);
+};
 
+newStoreForm.addEventListener('submit', handleNewStore);
 //===============
 // Function Calls
 //===============
