@@ -16,6 +16,11 @@ header h1, h2 {
     text-align: center;
 }
 
+footer {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
 hr {
     height: 25px;
     min-width: 300px;
@@ -24,6 +29,9 @@ hr {
     opacity: .5;
     border: 0;
 }
+/* ======
+   TABLES
+   ======*/
 
 table {
     border: 1px black solid;
@@ -42,9 +50,17 @@ th {
     font-weight: 400;
 }
 
-tr:hover {
+tbody tr:hover, tfoot tr:hover { /* Excludes thead from highlighting */
     background-color: rgb(164, 253, 246);
 }
+
+/*
+
+
+
+/*=====
+  LINKS
+  =====*/
 
 .page-link {
     /*POSITION*/

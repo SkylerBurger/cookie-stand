@@ -1,5 +1,11 @@
 'use strict';
 
+//===============================
+// Global Variables and Listeners
+//===============================
+
+var newStoreForm = document.getElementById('new-store-form');
+
 //==================
 // Store Constructor
 //==================
@@ -86,6 +92,18 @@ Store.prototype.renderRow = function(rowType) {
   return trEl;
 };
 
+//==============
+// Default Store Objects
+//==============
+
+var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
+var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
+var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
+var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
+var alki = new Store('Alki', 2, 16, 4.6);
+
+var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
+
 //==========
 // Functions
 //==========
@@ -113,7 +131,7 @@ var renderHeader = function(headerType) {
     } else {
       time += ':00pm';
     }
-    console.log(`time is ${time} and i is ${i}`);
+
     thEl = document.createElement('th');
     thEl.textContent = time;
     trEl.appendChild(thEl);
@@ -167,7 +185,6 @@ var renderFooter = function(storeArray, footerType) {
 
     tdEl = document.createElement('td');
     tdEl.textContent = sumTotal;
-    console.log(tdEl);
     trEl.appendChild(tdEl);
   }
 
@@ -212,18 +229,26 @@ var renderTables = function(storeArray) {
   staffTableEl.appendChild(renderFooter(storeArray, 'staffing'));
 };
 
-//==============
-// Store Objects
-//==============
+var handleNewStore = function(event) {
+  // Stop some default behavior
+  event.preventDefault();
 
-var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
-var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
-var seattleCenter = new Store('Seattle Center', 11, 38, 3.7);
-var capitolHill = new Store('Capitol Hill', 20, 38, 2.3);
-var alki = new Store('Alki', 2, 16, 4.6);
+  // Gather input from the form
+  var name = event.target['store-location-name'].value;
+  console.log(name);
+  var min = event.target['min-customers-per-hour'].value;
+  console.log(min);
+  var max = event.target['max-customers-per-hour'].value;
+  console.log(max);
+  var average = parseInt(event.target['avg-cookies-per-sale'].value);
+  console.log(average);
+  
+  // Create store and add to array
+  var newStore = new Store(name, min, max, average);
+  allStores.push(newStore);
+};
 
-var allStores = [firstAndPike, seaTacAirport, seattleCenter, capitolHill, alki];
-
+newStoreForm.addEventListener('submit', handleNewStore);
 //===============
 // Function Calls
 //===============
