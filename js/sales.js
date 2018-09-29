@@ -202,7 +202,6 @@ var renderFooter = function(storeArray, footerType) {
 
 var renderTables = function(storeArray) {
   // Run simulateSalesFor Day for each store if array hasn't been populated
-  
   for(var i in storeArray) {
     if(storeArray[i].salesRecord.length === 0){
       storeArray[i].simulateSalesForDay();
@@ -214,7 +213,14 @@ var renderTables = function(storeArray) {
   var staffTableEl = document.getElementById('staffing');
 
   // Clear children elements of the tables, if any
-  // salesTableEl.children.clear();
+  // Solution by user Gabriel McAdams on this StackOverflow page
+  // https://stackoverflow.com/questions/3955229/remove-all-child-elements-of-a-dom-node-in-javascript
+  while (salesTableEl.firstChild) {
+    salesTableEl.removeChild(salesTableEl.firstChild);
+  }
+  while (staffTableEl.firstChild) {
+    staffTableEl.removeChild(staffTableEl.firstChild);
+  }
 
   // Create and append thead
   salesTableEl.appendChild(renderHeader('sales'));
@@ -242,9 +248,9 @@ var handleNewStore = function(event) {
   // Gather input from the form
   var name = event.target['store-location-name'].value;
   console.log(name);
-  var min = event.target['min-customers-per-hour'].value;
+  var min = parseInt(event.target['min-customers-per-hour'].value);
   console.log(min);
-  var max = event.target['max-customers-per-hour'].value;
+  var max = parseInt(event.target['max-customers-per-hour'].value);
   console.log(max);
   var average = parseInt(event.target['avg-cookies-per-sale'].value);
   console.log(average);
