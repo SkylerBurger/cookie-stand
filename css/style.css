@@ -1,7 +1,7 @@
 body {
     height: 100%;
     width: 100%;
-    background: linear-gradient(150deg, rgb(26, 81, 88) 5%, rgb(161, 231, 208) 90%);
+    background: linear-gradient(135deg, rgb(33, 104, 114) 10%, rgb(126, 182, 163) 100%);
     background-attachment: fixed;
 }
 
@@ -16,8 +16,18 @@ header h1, h2 {
     text-align: center;
 }
 
+hr {
+    height: 25px;
+    min-width: 300px;
+    max-width: 680px;
+    background: url(https://i.imgur.com/3xQZcVn.png) round;
+    opacity: .5;
+    border: 0;
+}
+
 table {
     border: 1px black solid;
+    margin: auto;
 }
 
 td {
@@ -34,4 +44,16 @@ th {
 
 tr:hover {
     background-color: rgb(164, 253, 246);
+}
+
+.page-link {
+    /*POSITION*/
+    display: block;
+    margin: auto;
+    /*TEXTAPPEARANCE*/
+    font-size: 48px;
+    font-family: 'Fredericka the Great';
+    /* font-weight used to keep Google Font in header from appearing bold */
+    font-weight: 400;
+    text-align: center;
 }
