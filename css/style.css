@@ -29,6 +29,13 @@ hr {
     opacity: .5;
     border: 0;
 }
+
+p, ul {
+    font-family: 'Josefin Slab';
+    font-weight: 400;
+    font-size: 18px;
+}
+
 /* ======
    TABLES
    ======*/
@@ -62,6 +69,9 @@ form {
     max-width: 500px;
     min-width: 300px;
     margin: 30px auto;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: rgba(98, 98, 98, 0.315);
 }
 
 legend {
@@ -77,18 +87,27 @@ label, form p {
     font-family: 'Josefin Slab'; 
 }
 
+input {
+    background-color: rgba(154, 187, 176, 0.561);
+    border-radius: 5px;
+}
+
+.number-input {
+    width: 50px;
+}
+
 /*=====
   LINKS
   =====*/
 
 .page-link {
-    /*POSITION*/
-    display: block;
-    margin: auto;
     /*TEXTAPPEARANCE*/
     font-size: 36px;
     font-family: 'Fredericka the Great';
     /* font-weight used to keep Google Font in header from appearing bold */
     font-weight: 400;
     text-align: center;
+}
+.email {
+    display: block;
 }
