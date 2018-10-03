@@ -49,6 +49,7 @@ header nav a:hover {
 header hr {
     height: 25px;
     max-width: 720px;
+    -moz-background: url(https://i.imgur.com/3xQZcVn.png) round;
     background: url(https://i.imgur.com/3xQZcVn.png) round;
     opacity: .5;
     border: 0;
@@ -110,7 +111,71 @@ section div p {
     font-size: 14px;
 }
 
-#clear-fix {
+/* ======
+   TABLES
+   ======*/
+
+   table {
+    border: 1px black solid;
+    margin: auto;
+}
+
+td {
+    font-family: 'Chakra Petch';
+    text-align: center;
+    border: 1px black solid;
+    border-collapse: collapse;
+}
+
+th {
+    font-family: 'Josefin Slab';
+    font-weight: 400;
+}
+
+tr {
+    transition: all 2.5s ease;
+}
+
+tbody tr:hover, tfoot tr:hover { /* Excludes thead from highlighting */
+    background-color: rgb(164, 253, 246);
+}
+
+/*=====
+  FORMS
+  =====*/
+
+form {
+    max-width: 500px;
+    min-width: 300px;
+    margin: 30px auto;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: rgba(98, 98, 98, 0.109);
+}
+
+legend {
+    font-family: 'Fredericka the Great';
+    /* font-weight used to keep Google Font in header from appearing bold */
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label, form p {
+    font-family: 'Josefin Slab'; 
+}
+
+input {
+    background-color: rgba(154, 187, 176, 0.561);
+    border-radius: 5px;
+}
+
+.number-input {
+    width: 50px;
+}
+
+.clear-fix {
     display: block;
     position: relative;
     color: rgba(255, 255, 255, 0);
