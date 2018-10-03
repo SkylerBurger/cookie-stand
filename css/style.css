@@ -6,108 +6,80 @@ body {
 }
 
 header {
-    font-size: 48px;
-}
-
-header h1, h2 {
-    font-family: 'Fredericka the Great';
-    /* font-weight used to keep Google Font in header from appearing bold */
-    font-weight: 400;
-    text-align: center;
-}
-
-footer {
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-hr {
-    height: 25px;
-    min-width: 300px;
-    max-width: 680px;
-    background: url(https://i.imgur.com/3xQZcVn.png) round;
-    opacity: .5;
-    border: 0;
-}
-
-p, ul {
-    font-family: 'Josefin Slab';
-    font-weight: 400;
-    font-size: 18px;
-}
-
-/* ======
-   TABLES
-   ======*/
-
-table {
-    border: 1px black solid;
+    width: 100%;
     margin: auto;
 }
 
-td {
-    font-family: 'Chakra Petch';
+header h1 {
+    font-family: 'Fredericka the Great', fantasy;
+    font-size: 48px;
+    font-weight: 400;
+    width: 100%;
+    margin: auto;
     text-align: center;
-    border: 1px black solid;
-    border-collapse: collapse;
 }
 
-th {
-    font-family: 'Josefin Slab';
+header nav {
+    max-width: 960px;
+    min-width: 480px;
+    margin: auto 40px;
+    text-align: center;
+
+}
+header nav a {
+    /* TEXT */
+    font-family: 'Fredericka the Great', fantasy;
+    font-size: 18px;
     font-weight: 400;
+    text-decoration: none;
+    /* POSITION */
+    margin: 10px;
 }
 
-tbody tr:hover, tfoot tr:hover { /* Excludes thead from highlighting */
-    background-color: rgb(164, 253, 246);
+header nav a:hover {
+    font-weight: bold;
+    text-shadow: 3px 3px 5px rgb(63, 87, 90);
 }
 
-/*=====
-  FORMS
-  =====*/
-
-form {
-    max-width: 500px;
-    min-width: 300px;
-    margin: 30px auto;
-    padding: 1em;
-    border-radius: 10px;
-    background-color: rgba(98, 98, 98, 0.315);
+section {
+    max-width: 960px;
+    min-width: 480px;
+    margin: auto 40px;
 }
 
-legend {
-    font-family: 'Fredericka the Great';
-    /* font-weight used to keep Google Font in header from appearing bold */
-    font-weight: 400;
+section h2 {
+    font-family: 'Fredericka the Great', fantasy;
     font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-label, form p {
-    font-family: 'Josefin Slab'; 
-}
-
-input {
-    background-color: rgba(154, 187, 176, 0.561);
-    border-radius: 5px;
-}
-
-.number-input {
-    width: 50px;
-}
-
-/*=====
-  LINKS
-  =====*/
-
-.page-link {
-    /*TEXTAPPEARANCE*/
-    font-size: 36px;
-    font-family: 'Fredericka the Great';
-    /* font-weight used to keep Google Font in header from appearing bold */
     font-weight: 400;
     text-align: center;
 }
-.email {
-    display: block;
+
+section p {
+    font-family: 'Josefin Slab';
+    font-size: 18px;
+}
+
+section div {
+    border: 1px black dashed;
+    height: 200px;
+    width: 200px;
+    float: left;
+    justify-content: center;
+    border-collapse: collapse;
+    margin: 5px;
+    padding: 5px;
+}
+
+footer {
+    clear: both;
+}
+
+header hr {
+    height: 25px;
+    max-width: 960px;
+    min-width: 480px;
+    background: url(https://i.imgur.com/3xQZcVn.png) round;
+    opacity: .5;
+    border: 0;
+    margin: auto;
 }
