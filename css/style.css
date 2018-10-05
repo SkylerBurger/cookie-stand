@@ -25,7 +25,12 @@ header h1 {
 }
 
 .pink {
-color: rgb(228, 187, 180);
+    color: rgb(228, 187, 180);
+}
+
+.sales-header {
+    margin-top: 39px;
+    margin-bottom: 30px;
 }
 
 #tilt {
@@ -49,10 +54,9 @@ header nav a {
     font-family: 'Fredericka the Great', fantasy;
     color: black;
     font-size: 24px;
-    font-weight: 400;
     text-decoration: none;
     margin: 10px;
-    transition: all 1s ease;
+    transition: all .75s ease;
 }
 
 header nav a:hover {
@@ -72,25 +76,21 @@ header hr {
 } */
 
 main {
-    max-width: 840px;
-    min-width: 606px;
-    margin: auto;
+    max-width: 100%;
 }
 
 section {
     max-width: 840px;
     min-width: 200px;
-    margin-bottom: 30px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin: 0 auto 30px auto;
     padding: 10px 40px;
     background-color: rgba(164, 209, 194, 0.3);
     border-radius: 10px;
-    box-shadow: 2px 2px 4px rgb(77, 76, 76);
-    /* CLEAR FIX */
+    box-shadow: 3px 3px 3px rgb(77, 76, 76);
     content: "";
     display: table;
     clear: both;
+    z-index: 1;
 }
 
 section h2 {
@@ -103,19 +103,20 @@ section h2 {
 
 section p {
     font-family: 'Josefin Slab';
-    font-size: 18px;
+    font-size: 20px;
     margin-bottom: 20px;
+    line-height: 1.3em;
+    text-align: justify;
 }
 
 section div {
     border: 1px black dashed;
-    text-align: center;
     border-radius: 4px;
     height: 150px;
     width: 150px;
     float: left;
     margin: 5px;
-    padding: 20px 0 0 0;
+    padding: 20px 0 0 20px;
     box-sizing: border-box;
     transition: all 1.5s ease;
 }
@@ -125,21 +126,15 @@ section div {
     padding-bottom: 40px;
 }
 
-.locations h2 {
-    position: relative;
-    left: -20px;
-}
-
 .locations div:hover {
     background-color: rgba(162, 223, 203, 0.61);
 }
-
 
 section div h3 {
     display: inline-block;
     top: 5px;
     margin-bottom: 10px;
-    font-family: 'Josefin Slab';
+    font-family: 'Josefin Slab', serif;
     font-size: 18px;
     font-weight: bold;
 }
@@ -150,13 +145,23 @@ section div p, section div a {
 }
 
 footer {
-    position: absolute;
     bottom: 0;
-    height: 24px;
-    width: 90%;
+    height: 60px;
+    width: 100%;
     margin: auto;
-    border-radius: 5px;
-    background-color: rgba(54, 85, 88, 0.384);
+    background:linear-gradient(rgb(0, 0, 0, 0) 5%, rgba(54, 85, 88, .9));
+}
+
+footer a {
+    margin-top: 25px;
+    margin-right: 40px;
+    float: right;
+    font-family: 'Josefin Slab', serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(228, 187, 180);
 }
 
 /* ======
@@ -169,6 +174,7 @@ footer {
 }
 
 td {
+    vertical-align: middle;
     font-family: 'Chakra Petch';
     text-align: center;
     border: 1px black solid;
@@ -176,6 +182,8 @@ td {
 }
 
 th {
+    height: 40px;
+    vertical-align: middle;
     font-family: 'Josefin Slab';
     font-weight: 400;
 }
@@ -184,7 +192,7 @@ tr {
     transition: all 1.75s ease;
 }
 
-tbody tr:hover, tfoot tr:hover { /* Excludes thead from highlighting */
+tbody tr:hover, tfoot tr:hover {
     background-color: rgba(162, 223, 203, 0.61);
 }
 
@@ -203,8 +211,6 @@ form {
 
 legend {
     font-family: 'Fredericka the Great';
-    /* font-weight used to keep Google Font in header from appearing bold */
-    font-weight: 400;
     font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
@@ -227,7 +233,7 @@ input {
     display: block;
     position: relative;
     color: rgba(255, 255, 255, 0);
-    z-index: -1;
+    z-index: -2;
 }
 
 footer {

@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <h1 class="green">Sales</h1>
+        <h1 class="green sales-header">Sales</h1>
         <nav>
             <a href="index.html">- Home -</a>
             <a href="#">- About -</a>
@@ -19,35 +19,37 @@
             <a href="sales.html">- Sales -</a>
         </nav>
     </header>
-    <section>
-            <h2>Sales For The Day:</h2>
-            <table id="sales"></table>
-    </section>
-    <section>
-        <h2>Cookie Tossers Needed:</h2>
-        <table id="staffing"></table>
-    </section>
-    <section>
-        <form id="new-store-form">
-            <fieldset>
-                <legend>New Store Form</legend>
-
-                <label for="store-location-name">Store Location Name</label>
-                <input name="store-location-name" type="text" placeholder="location name">
-
-                <p>Customers Per Hour</p>
-                <label for="min-customers-per-hour">Min</label>
-                <input name="min-customers-per-hour" type="number" class="number-input"> 
-                <label for="max-customers-per-hour">Max</label>
-                <input name="max-customers-per-hour" type="number" class="number-input">
-
-                <label for="avg-cookies-per-sale">Average Cookies Per Sale</label>
-                <input name="avg-cookies-per-sale" type="text" class="number-input">
-                <button type="submit">SUBMIT</button>
-                <button type="reset">RESET FORM</button>
-            </fieldset>
-        </form>
-    </section>
+    <main>
+        <section>
+                <h2>Sales For The Day:</h2>
+                <table id="sales"></table>
+        </section>
+        <section>
+            <h2>Cookie Tossers Needed:</h2>
+            <table id="staffing"></table>
+        </section>
+        <section>
+            <form id="new-store-form">
+                <fieldset>
+                    <legend>New Store Form</legend>
+    
+                    <label for="store-location-name">Store Location Name</label>
+                    <input name="store-location-name" type="text" placeholder="location name">
+    
+                    <p>Customers Per Hour</p>
+                    <label for="min-customers-per-hour">Min</label>
+                    <input name="min-customers-per-hour" type="number" class="number-input"> 
+                    <label for="max-customers-per-hour">Max</label>
+                    <input name="max-customers-per-hour" type="number" class="number-input">
+    
+                    <label for="avg-cookies-per-sale">Average Cookies Per Sale</label>
+                    <input name="avg-cookies-per-sale" type="text" class="number-input">
+                    <button type="submit">SUBMIT</button>
+                    <button type="reset">RESET FORM</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
 
     <script src="js/sales.js"></script>
 </body>
