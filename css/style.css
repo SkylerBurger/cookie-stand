@@ -9,7 +9,8 @@ html, body {
 
 header {
     height: 260px;
-    background:linear-gradient(rgb(212, 102, 83), rgb(212, 102, 83, 0));
+    background:linear-gradient(rgb(212, 102, 83) 10%, rgb(212, 102, 83, 0));
+    padding-top: 10px;
 }
 
 header h1 {
@@ -71,13 +72,13 @@ header hr {
 } */
 
 main {
-    max-width: 720px;
+    max-width: 840px;
     min-width: 606px;
     margin: auto;
 }
 
 section {
-    max-width: 720px;
+    max-width: 840px;
     min-width: 200px;
     margin-bottom: 30px;
     margin-left: 20px;
@@ -103,6 +104,7 @@ section h2 {
 section p {
     font-family: 'Josefin Slab';
     font-size: 18px;
+    margin-bottom: 20px;
 }
 
 section div {
@@ -116,6 +118,16 @@ section div {
     padding: 20px 0 0 0;
     box-sizing: border-box;
     transition: all 1.5s ease;
+}
+
+.locations {
+    padding-left: 70px;
+    padding-bottom: 40px;
+}
+
+.locations h2 {
+    position: relative;
+    left: -20px;
 }
 
 .locations div:hover {

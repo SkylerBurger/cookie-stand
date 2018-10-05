@@ -92,9 +92,9 @@ Store.prototype.renderRow = function(rowType) {
   return trEl;
 };
 
-//==============
+//======================
 // Default Store Objects
-//==============
+//======================
 
 var firstAndPike = new Store('1st and Pike', 23, 65, 6.3);
 var seaTacAirport = new Store('SeaTac Airport', 3, 24, 1.2);
@@ -261,7 +261,12 @@ var handleNewStore = function(event) {
   renderTables(allStores);
 };
 
+//================
+// Event Listeners
+//================
+
 newStoreForm.addEventListener('submit', handleNewStore);
+
 //===============
 // Function Calls
 //===============
