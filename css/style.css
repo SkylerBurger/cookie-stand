@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Chakra+Petch|Fredericka+the+Great|Josefin+Slab|Press+Start+2P');
+
 html, body {
     height: 100%;
     max-width: 100%;
     min-width: 606px;
     margin: 0;
+    padding-bottom: 240px;
     background: linear-gradient(135deg, rgb(33, 104, 114) 10%, rgb(126, 182, 163) 100%);
     background-attachment: fixed;
 }
 
 header {
-    height: 260px;
+    height: 200px;
     background:linear-gradient(rgb(212, 102, 83) 10%, rgb(212, 102, 83, 0));
     padding-top: 10px;
 }
@@ -26,6 +29,10 @@ header h1 {
 
 .pink {
     color: rgb(228, 187, 180);
+}
+
+.red {
+    color: rgb(250, 39, 39);
 }
 
 .sales-header {
@@ -64,16 +71,16 @@ header nav a:hover {
     color: white;
 }
 
-/*
-header hr {
+
+hr {
     height: 25px;
     max-width: 720px;
-    -moz-background: url(https://i.imgur.com/3xQZcVn.png) round;
-    background: url(https://i.imgur.com/3xQZcVn.png) round;
+    -moz-background: url('https://i.imgur.com/3xQZcVn.png') round;
+    background: url('https://i.imgur.com/3xQZcVn.png') round;
     opacity: .5;
     border: 0;
-    margin: 20px 40px 20px 40px;
-} */
+    margin: 20px auto 40px auto;
+}
 
 main {
     max-width: 100%;
@@ -81,7 +88,7 @@ main {
 
 section {
     max-width: 840px;
-    min-width: 200px;
+    min-width: 400px;
     margin: 0 auto 30px auto;
     padding: 10px 40px;
     background-color: rgba(164, 209, 194, 0.3);
@@ -107,6 +114,10 @@ section p {
     margin-bottom: 20px;
     line-height: 1.3em;
     text-align: justify;
+}
+
+#welcome p {
+    text-indent: 30px;
 }
 
 section div {
@@ -144,11 +155,25 @@ section div p, section div a {
     margin-bottom: 10px;
 }
 
+#gallery img {
+    display: block;
+    width: 200px;
+    border-radius: 50%;
+    margin: 25px auto;
+    filter: grayscale(1);
+    transition: all 1.5s ease;
+}
+
+#gallery img:hover {
+    filter: none;
+    width: 300px;
+}
+
 footer {
+    position: relative;
     bottom: 0;
     height: 60px;
     width: 100%;
-    margin: auto;
     background:linear-gradient(rgb(0, 0, 0, 0) 5%, rgba(54, 85, 88, .9));
 }
 
@@ -183,6 +208,7 @@ td {
 
 th {
     height: 40px;
+    padding: 5px 10px;
     vertical-align: middle;
     font-family: 'Josefin Slab';
     font-weight: 400;
@@ -205,24 +231,37 @@ form {
     min-width: 300px;
     margin: 30px auto;
     padding: 1em;
+    text-align: center;
+}
+
+fieldset {
+    border: 1px black dashed;
     border-radius: 10px;
-    background-color: rgba(98, 98, 98, 0.109);
+    padding: 10px;
 }
 
 legend {
-    font-family: 'Fredericka the Great';
+    font-family: 'Fredericka the Great', fantasy;
     font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
 }
 
 label, form p {
-    font-family: 'Josefin Slab'; 
+    font-family: 'Josefin Slab', sans-serif; 
+    text-align: center;
+    margin-top: 20px;
 }
 
 input {
-    background-color: rgba(154, 187, 176, 0.561);
+    background-color: rgba(162, 223, 203, 0.61);
     border-radius: 5px;
+}
+
+button {
+    margin-top: 30px;
+    font-family: 'Josefin Slab', sans-serif;
+    font-weight: bold;
 }
 
 .number-input {
@@ -234,9 +273,5 @@ input {
     position: relative;
     color: rgba(255, 255, 255, 0);
     z-index: -2;
-}
-
-footer {
-    clear: both;
 }
 
