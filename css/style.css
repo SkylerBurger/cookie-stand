@@ -88,7 +88,7 @@ main {
 
 section {
     max-width: 840px;
-    min-width: 200px;
+    min-width: 400px;
     margin: 0 auto 30px auto;
     padding: 10px 40px;
     background-color: rgba(164, 209, 194, 0.3);
@@ -155,12 +155,25 @@ section div p, section div a {
     margin-bottom: 10px;
 }
 
+#gallery img {
+    display: block;
+    width: 200px;
+    border-radius: 50%;
+    margin: 25px auto;
+    filter: grayscale(1);
+    transition: all 1.5s ease;
+}
+
+#gallery img:hover {
+    filter: none;
+    width: 300px;
+}
+
 footer {
-    position: fixed;
+    position: relative;
     bottom: 0;
     height: 60px;
     width: 100%;
-    margin: auto;
     background:linear-gradient(rgb(0, 0, 0, 0) 5%, rgba(54, 85, 88, .9));
 }
 
@@ -260,9 +273,5 @@ button {
     position: relative;
     color: rgba(255, 255, 255, 0);
     z-index: -2;
-}
-
-footer {
-    clear: both;
 }
 
