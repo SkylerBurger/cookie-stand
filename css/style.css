@@ -7,45 +7,64 @@ html, body {
     background-attachment: fixed;
 }
 
-header, main {
-    max-width: 720px;
-    min-width: 606px;
-    margin: auto;
-    text-align: center;
+header {
+    height: 260px;
+    background:linear-gradient(rgb(212, 102, 83) 10%, rgb(212, 102, 83, 0));
+    padding-top: 10px;
 }
 
 header h1 {
-    font-family: 'Fredericka the Great', fantasy;
-    font-size: 48px;
-    font-weight: 400;
-    max-width: 720px;
-    min-width: 480px;
-    margin: 0px 40px;
+    font-family: "Fredericka the Great", Fantasy;
+    font-size: 60px;
     text-align: center;
+    text-shadow: 3px 3px 2px rgb(41, 40, 40);
+}
+
+.green {
+    color: rgb(126, 182, 163);
+}
+
+.pink {
+    color: rgb(228, 187, 180);
+}
+
+.sales-header {
+    margin-top: 39px;
+    margin-bottom: 30px;
+}
+
+#tilt {
+    float: center;
+    margin: auto;
+    transform: rotate(-5deg);
+    line-height: 10px;
+    text-shadow: 3px 3px 1px rgb(17, 17, 17); 
 }
 
 header nav {
+    position: relative;
+    top: 20px;
     max-width: 720px;
     min-width: 480px;
     margin: auto;
     text-align: center;
-
 }
+
 header nav a {
-    /* TEXT */
     font-family: 'Fredericka the Great', fantasy;
+    color: black;
     font-size: 24px;
-    font-weight: 400;
     text-decoration: none;
-    /* POSITION */
     margin: 10px;
-    transition: all 0.5s ease;
+    transition: all .75s ease;
 }
 
 header nav a:hover {
-    text-shadow: 1px 1px 2px ;
+    text-shadow: 1px 1px 1px ;
+    color: white;
 }
 
+/*
 header hr {
     height: 25px;
     max-width: 720px;
@@ -54,23 +73,24 @@ header hr {
     opacity: .5;
     border: 0;
     margin: 20px 40px 20px 40px;
+} */
+
+main {
+    max-width: 100%;
 }
 
 section {
-    max-width: 720px;
-    min-width: 480px;
-    margin: 40px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: rgba(104, 206, 219, 0.3);
+    max-width: 840px;
+    min-width: 200px;
+    margin: 0 auto 30px auto;
+    padding: 10px 40px;
+    background-color: rgba(164, 209, 194, 0.3);
     border-radius: 10px;
-    box-shadow: 2px 2px 4px rgb(77, 76, 76);
-    /* CLEAR FIX */
+    box-shadow: 3px 3px 3px rgb(77, 76, 76);
     content: "";
     display: table;
     clear: both;
+    z-index: 1;
 }
 
 section h2 {
@@ -78,11 +98,15 @@ section h2 {
     font-size: 36px;
     font-weight: 400;
     text-align: center;
+    margin: 15px 0 20px 0;
 }
 
 section p {
     font-family: 'Josefin Slab';
-    font-size: 18px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    line-height: 1.3em;
+    text-align: justify;
 }
 
 section div {
@@ -92,23 +116,52 @@ section div {
     width: 150px;
     float: left;
     margin: 5px;
-    padding: 5px;
+    padding: 20px 0 0 20px;
+    box-sizing: border-box;
     transition: all 1.5s ease;
 }
 
-.locations div:hover {
-    background-color: rgba(104, 206, 219);
+.locations {
+    padding-left: 70px;
+    padding-bottom: 40px;
 }
 
+.locations div:hover {
+    background-color: rgba(162, 223, 203, 0.61);
+}
 
 section div h3 {
-    font-family: 'Josefin Slab';
+    display: inline-block;
+    top: 5px;
+    margin-bottom: 10px;
+    font-family: 'Josefin Slab', serif;
     font-size: 18px;
     font-weight: bold;
 }
 
-section div p {
+section div p, section div a {
     font-size: 14px;
+    margin-bottom: 10px;
+}
+
+footer {
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+    margin: auto;
+    background:linear-gradient(rgb(0, 0, 0, 0) 5%, rgba(54, 85, 88, .9));
+}
+
+footer a {
+    margin-top: 25px;
+    margin-right: 40px;
+    float: right;
+    font-family: 'Josefin Slab', serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(228, 187, 180);
 }
 
 /* ======
@@ -121,6 +174,7 @@ section div p {
 }
 
 td {
+    vertical-align: middle;
     font-family: 'Chakra Petch';
     text-align: center;
     border: 1px black solid;
@@ -128,16 +182,18 @@ td {
 }
 
 th {
+    height: 40px;
+    vertical-align: middle;
     font-family: 'Josefin Slab';
     font-weight: 400;
 }
 
 tr {
-    transition: all 2.5s ease;
+    transition: all 1.75s ease;
 }
 
-tbody tr:hover, tfoot tr:hover { /* Excludes thead from highlighting */
-    background-color: rgb(164, 253, 246);
+tbody tr:hover, tfoot tr:hover {
+    background-color: rgba(162, 223, 203, 0.61);
 }
 
 /*=====
@@ -155,8 +211,6 @@ form {
 
 legend {
     font-family: 'Fredericka the Great';
-    /* font-weight used to keep Google Font in header from appearing bold */
-    font-weight: 400;
     font-size: 24px;
     text-align: center;
     margin-bottom: 20px;
@@ -179,7 +233,7 @@ input {
     display: block;
     position: relative;
     color: rgba(255, 255, 255, 0);
-    z-index: -1;
+    z-index: -2;
 }
 
 footer {
